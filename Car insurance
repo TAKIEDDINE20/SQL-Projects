@@ -1,1 +1,43 @@
+In this project we analysed the insurance payments for the cars which they had accedents.
+The database has the following tables:
+PERSON (driver-id, name, address)
+CAR (license, model, year)
+ACCIDENT (report-number, date, location)
+OWNS (driver-id, license)
+PARTICIPATION (driver-id, report-number, damage-amount)
+
+1)  The total number of people who owned cars that were involved in accidents so far in 2023 is.
+
+SELECT COUNT(Driver_ID)
+From Person
+Join PARTICIPATION PT on P.driver_ID=PT.driver_ID
+Where PT.report_number in (select  report_number from Accident where YEAR(DATE)=2023)
+
+
+2)  The number of accidents in which the cars belonging to “Vincent” were 
+involved is: 
+
+SELECT Count(*) from ACCIDENTS 
+Join PARTICIPATION PT on A. report_number=PT. report_number
+Where PT.driver_ID in (Select P.Driver_ID from Person where P.Name = “Vincent”)
+
+
+3) Delete the Toyota belonging to "John" since his insurAnce for Toyota has paid out: 
+Delete From CARS 
+WHERE License = (SELECT C.License from cars C
+                                join  Owns O on O.License=C.License
+                                Join Person PE On PE.driver_ID=O.driver_ID
+                                Where C.model=”Toyota” and  PE.name = “John”)
+
+4) Find the top 5 damages amount paid out last year. Show Driver info, report 
+number and license appropriately.
+
+Select pa.driver-id, pa.report-number, pa.damage-amount, p.name, p.address, O.license
+FROM Participation Pa
+Join OWNS O ON PA.Driver_ID=O.driver_ID
+JOIN person p on  pa.Driver_ID=p.driver_ID
+Join accident a ON pa.report_number=a.report_number
+Where year(a.date)=Year(Currentdate())-1
+Order by pa.damage_amount desc 
+Limit 5
 
