@@ -1,2 +1,40 @@
-## We need to know how many shows will be in each city and how monay people are going to attend, what is the capacity of the theatre and other questions.
+We need to know how many shows will be in each city and how monay people are going to attend, what is the capacity of the theatre and other questions.
  
+1) The names of artists who performed before at least 5000 people, together with cities where those performances took place.
+
+SELECT S.ARTIST, CITY.NAME 
+FROM CITY 
+JOIN THEATRE
+ON CITY.NAME= THEATRE.CITY  
+JOIN SHOW S 
+ON THEATRE.NAME =SHOW.HALL
+WHERE SHOW.ATTENDANCE >=5000
+
+
+ 2) All states in Japan where Mr. Jordan has performed.
+ 
+SELECT C.state 
+FROM CITY 
+JOIN THEATRE
+ON CITY.NAME= THEATRE.CITY  
+JOIN SHOW S 
+ON THEATRE.NAME =SHOW.HALL
+WHERE SHOW.artist = “Mr. X” and CITY.country=”Japan”
+
+
+3) List all artists who never played in Delhi.
+
+SELECT S.artist 
+FROM show S
+JOIN THEATRE
+ON THEATRE.NAME =SHOW.HALL
+JOIN city 
+ON CITY.NAME= THEATRE.CITY  
+WHERE CITY.name !=”Delhi”
+
+
+4)  The name of theatres in Tokyo whose capacity exceeds 5000.
+
+Select T.name 
+From theatre T
+Where T.city = “Tokyo” and T.capacity >=5000
