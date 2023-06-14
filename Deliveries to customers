@@ -1,0 +1,49 @@
+The following tables which give details of customers, trucks and packets booked by customers.
+CUSTOMER (c_no, c_name, c_address)
+TRUCK (t_no, driver_name)
+PACKET (p_no, c_no, t_no, date_of_booking, weight, destination)
+
+1) what are the destinations which have received more than 10 packets:
+
+ SELECT destination 
+From Packet 
+Having(Count(P_no))>10
+Group by destination
+
+
+2) Name of Customers who have sent at least one packet of weight more than one kg to 'SINGAPORE'.
+
+SELECT C.C_name 
+From Customers C
+Join PACKET P on P.c_no=C.c_no 
+where p.weight>1 and P.destination=”SINGAPORE”
+group by c_name 
+having Count(p_no) >1 
+
+
+3) Name of all Customers whose packets were delivered by a driver whose name is 'Mark'.
+
+SELECT C.C_name 
+From Customers C
+Join PACKET P on P.c_no=C.c_no 
+Join Truck T on T.t_no = P.t_no
+Where driver_name='Mark'
+
+
+4) Three top customers (names) in terms of total packet weight sent by them (list is to be in descending order of total weight).
+
+SELECT C.c_name, SUM(P.weight) as total_weight
+From Customer C
+Join Packet P on C.c_no=P.c_no 
+Group by C.c_name 
+Order by total_weight desc
+Limit 3
+ 
+ 
+5) Name of all Customers whose individual shipments are less than one kg.
+
+SELECT C.c_name 
+From customer C
+Join Packet P on C.c_no=P.c_no
+Where P.weight <1
+
