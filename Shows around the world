@@ -19,7 +19,7 @@ JOIN THEATRE
 ON CITY.NAME= THEATRE.CITY  
 JOIN SHOW S 
 ON THEATRE.NAME =SHOW.HALL
-WHERE SHOW.artist = “Mr. X” and CITY.country=”Japan”
+WHERE SHOW.artist = "Mr. Jordan" and CITY.country="Japan"
 
 
 3) List all artists who never played in Delhi.
@@ -28,13 +28,13 @@ SELECT S.artist
 FROM show S
 JOIN THEATRE
 ON THEATRE.NAME =SHOW.HALL
-JOIN city 
+JOIN CITY
 ON CITY.NAME= THEATRE.CITY  
-WHERE CITY.name !=”Delhi”
+WHERE CITY.name !="Delhi"
 
 
 4)  The name of theatres in Tokyo whose capacity exceeds 5000.
 
 Select T.name 
 From theatre T
-Where T.city = “Tokyo” and T.capacity >=5000
+Where T.city = "Tokyo" and T.capacity >=5000
